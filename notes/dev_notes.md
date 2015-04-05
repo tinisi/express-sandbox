@@ -33,11 +33,11 @@ Added these from a-s (sort of guessing what I will want to use in short term):
 +    "mongoose": "3.8.14",
 +    "mongoose-filter-denormalize": "0.1.0",
 +    "express-bunyan-logger": "0.1.2",
-+    "connect-redis": "1.4.5",
++    "connect-redis": "1.4.5"
 ```
 
 Ran npm install and started her up:
 
 ```
-DEBUG=express-training ./bin/www
+DEBUG=my-application ./bin/www
 ```
