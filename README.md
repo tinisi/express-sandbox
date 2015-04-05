@@ -1,2 +1,3 @@
 # express-training
-Putting express framework through its paces
+
+Putting express framework through its paces.
