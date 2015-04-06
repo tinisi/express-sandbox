@@ -6,10 +6,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes');
-var users = require('./routes/user');
-var api = require('./routes/api/index');
-
 var app = express();
 
 // view engine setup
@@ -25,9 +21,11 @@ app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 
-app.get('/', routes.index);
-app.get('/users', users.list);
-app.get('/api', api.index);
+// using same syntax for routes as a-s
+require('./routes/index')(app);
+require('./routes/user')(app);
+require('./routes/api/index')(app);
+require('./routes/api/users')(app);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
