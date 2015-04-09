@@ -1,13 +1,22 @@
+
+var User = require('../../models/user.js');
+
 module.exports = function(app) {
 
     app.get('/api/users', function(req, res){
-        // set up some fake data to reply with
-        userList = ['Bob', 'Sue', 'Jim']
-        res.status(201).json(userList);
+        User.find({}, function(err, results) {
+            if ( err ) {
+                return console.error(err);
+            } else {
+                res.status(200).json(results);
+            }
+        });
     });
 
     app.post('/api/users', function(req, res){
-        console.log(req.body);
+        // this is super raw, but no worries, we'll be adding joi to the mix soon enough
+        var user = new User(req.body);
+        user.save();
         res.send('user created');
     });
 

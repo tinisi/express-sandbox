@@ -1,9 +1,32 @@
 #!/usr/bin/env node
 var debug = require('debug')('my-application');
 var app = require('../app');
+var db = require('../util/db_connect');
+// make sure this is avaible in this scope
+var server = '';
 
 app.set('port', process.env.PORT || 3000);
 
-var server = app.listen(app.get('port'), function() {
-  debug('Express server listening on port ' + server.address().port);
+// setting up a callback to bootstrap the app after mongoose is ready to rock
+var onDbConnect = function() {
+    server = app.listen(app.get('port'), function() {
+      debug('Express server listening on port ' + server.address().port);
+    });
+}
+
+var onDbClose = function() {
+    console.log('Mongoose default connection running in ' + process.pid + ' disconnected through app termination');
+    // this mostly kinda works, seems to leave one connection open
+    // which makes no sense to me since this is the call back for the mongoose close event
+    // however, if I don't do something like this, I am leaving open 4 or more mongo processes
+    process.exit(0);
+}
+
+// If the Node process ends, close the Mongoose connection
+process.on('SIGINT', function() {
+  db.close(onDbClose);
 });
+
+// This is what actually bootstraps the application, we'll start the server after we've
+// caught us a mongoose!
+db.connect(onDbConnect);

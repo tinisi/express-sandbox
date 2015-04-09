@@ -1,6 +1,19 @@
 
 # Dev notes for express training
 
+## 4/9/2015
+
+Got simple mongoose integration working.
+
+Kind of deciding I don't like having the URL strings "hidden" in the routes folder, considering putting them back to the way that the express-generator did it.
+
+I think before I get into joi I will try to call one of my end points with a webhook from a-s.
+
+Plan of attack:
+* webhook proof of concept
+* integrate joi for data integrity
+* do some proof of concept to play with classical inheritance in model classes
+
 ## 4/3/2015
 
 Trying to match versions used in current HEAD of master of asthmapolis-server (a-s from here) as of today.

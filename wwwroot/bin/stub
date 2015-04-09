@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+
+// this script is just a quick and dirty place to run code as I develop
+// isolated from the complexity of the express integration
+
+var db = require('../util/db_connect');
+
+// setting up a callback to bootstrap the app after mongoose is ready to rock
+var onDbConnect = function() {
+    // do some mongoose stuff here
+    var mongoose = require('mongoose');
+
+    var kittySchema = mongoose.Schema({
+        name: String
+    })
+    
+    kittySchema.methods.speak = function () {
+      var greeting = this.name
+        ? "Meow name is " + this.name
+        : "I don't have a name"
+      console.log(greeting);
+    }
+
+    var Kitten = mongoose.model('Kitten', kittySchema)
+    var fluffy = new Kitten({ name: 'fluffy' });
+    // this is just an example to show that schema's can have methods,
+    // and that they work just fine before they are actually saved to the database
+    // fluffy.speak();
+
+    fluffy.save(function (err, fluffy) {
+      if (err) return console.error(err);
+      fluffy.speak();
+    });
+
+    Kitten.find(function (err, kittens) {
+      if (err) return console.error(err);
+      console.log(kittens)
+    })
+
+    var User = require('../models/user.js');
+    User.find({}, function(err, results) {
+        if ( err ) {
+            return console.error(err);
+        } else {
+            console.log(results);
+        }
+    })
+
+
+}
+
+var onDbClose = function() {
+    console.log('Mongoose default connection running in ' + process.pid + ' disconnected through app termination'); 
+    // this mostly kinda works, seems to leave one connection open
+    process.exit(0);
+}
+
+// If the Node process ends, close the Mongoose connection 
+process.on('SIGINT', function() {
+  db.close(onDbClose);
+});
+
+// This is what actuall bootstraps the application, we'll start the server after we've
+// caught us a mongoose!
+db.connect(onDbConnect); 
