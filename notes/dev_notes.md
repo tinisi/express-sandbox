@@ -1,6 +1,16 @@
 
 # Dev notes for express training
 
+## 4/28/2015
+
+
+{
+	"first_name": "Jason",
+    "last_name": "Grosz",
+    "is_compliant": true
+  
+}
+
 ## 4/9/2015
 
 Got simple mongoose integration working.
