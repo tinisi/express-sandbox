@@ -1,6 +1,6 @@
 # express-training
 
-This project is inactive for now. I was a training exercise.
+This project is inactive for now. It was a training exercise.
 
 If/when I pick it up again, I would like to add these features:
 
