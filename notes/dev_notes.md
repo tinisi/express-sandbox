@@ -1,6 +1,11 @@
 
 # Dev notes for express training
 
+
+## 10/8/2016
+
+No notes on how I was running mongo locally, so going to try to put together a quick docker-compose file.
+
 ## 4/28/2015
 
 
