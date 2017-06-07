@@ -1,4 +1,4 @@
-# express-training
+# express-sandbox
 
 This project is inactive for now. It was a training exercise.
 

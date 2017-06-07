@@ -1,0 +1,17 @@
+version: '2'
+services:
+  mongodata:
+    image: mongo:3.0.4
+    volumes:
+      - /data/db
+    command: --break-mongo
+  mongo:
+    image: mongo:3.0.4
+    volumes_from:
+      - mongodata
+    ports:
+      - "27017:27017"
+    # TODO: put back --auth flag and set up users
+    # command: --smallfiles --rest --auth
+    # NOTE: this is not secure!
+    command: --smallfiles --rest
